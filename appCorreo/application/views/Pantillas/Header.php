@@ -7,7 +7,7 @@
 
 	<title><?php echo $title ?></title>
 
-	<link href= "../appCorreo/assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href= "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -15,6 +15,6 @@
 
 
 
-<hr>
+
 
 
