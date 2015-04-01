@@ -53,7 +53,7 @@ class User extends CI_Controller {
 	
 		if ($user > 1) {
 			$data['title'] = "Pagina Principal";
-         	$this->load->view('mainmenu',$data);
+         	$this->load->view('salidav',$data);
 
 		}else{
 
@@ -63,6 +63,13 @@ class User extends CI_Controller {
 		}
 		
 		
+	}
+
+
+	public function consultarUser(){
+
+
+
 	}
 }
 

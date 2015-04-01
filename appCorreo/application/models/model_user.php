@@ -15,5 +15,12 @@
 
 		}
 
+		public function getUserID($id){
+
+			$consulta='SELECT * FROM `users` WHERE id ='.$id;
+        	$query = $this->db->query("$consulta");
+        	return $query->row();
+		}
+
 	}
 ?>
