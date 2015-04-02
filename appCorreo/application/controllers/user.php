@@ -69,8 +69,9 @@ class User extends CI_Controller {
 		
 	}
 	public function verificarUser(){
-		$code = $_GET['code'];
-	
+		$code = $_REQUEST['code'];
+		echo $code;
+		die();
 		$this->load->model('model_user','user');
 		$this->user->veriUser($code);
 		redirect("/user/login");
@@ -94,11 +95,11 @@ class User extends CI_Controller {
 
 		$mail->From = "santiesmar@gmail.com"; 
 		$mail->FromName = "Nombre";
-		$mail->Subject = "Titulo";
+		$mail->Subject = "Notificacion";
 		$mail->AltBody = "Este es un mensaje";  
 		
-		
-		$mail->MsgHTML("<a href='http://localhost:8080/appCorreo/user/verificarUser?code=1652'>Verificar codigo</a>"); 
+		$code =1652;
+		$mail->MsgHTML("<p>Dale click para verificar tu cuenta</p><a href='http://localhost:8080/appCorreo/user/verificarUser/?code=$code'>Verificar codigo</a>"); 
 		
 		$mail->AddAddress("santiesmar@gmail.com"); $mail->IsHTML(true); 
 		
@@ -109,6 +110,7 @@ class User extends CI_Controller {
 
 		if($exito){
 			echo "El correo fue enviado correctamente";
+			redirect("/user/login");
 		}else{
 			echo "Hubo un inconveniente. Contacta a un administrador";
 		}
