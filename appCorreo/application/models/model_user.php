@@ -23,7 +23,7 @@
 		}
 
 		public function veriUser($code){
-			$consulta="UPDATE `users` SET `estado`=0 WHERE code='$code'";
+			$consulta="UPDATE `users` SET `estado`=1 WHERE code='$code'";
         	$query = $this->db->query("$consulta");
         	return $query;
 

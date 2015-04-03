@@ -26,6 +26,8 @@ class User extends CI_Controller {
 	public function insert(){
 
 			$pas = $this->input->post('npassword'); 
+			$email = $this->input->post('ncorreo');
+			$name = $this->input->post('nusername');
 			$encrip = md5($pas);
 			$randcode = rand(1000,9000);
    			$data  = array(
@@ -33,16 +35,16 @@ class User extends CI_Controller {
 				'name' => $this->input->post('nusername') , 
 				'password' =>  $encrip,
 				'estado' => 0 , 
-				'code' => $randcode, 
+				'code' => $randcode,
+				'email' => $emial,
 				);
-   			$name = $this->input->post('nusername');
-
-   			$email = $this->input->post('ncorreo');
+   		
 			$this->load->model('model_user','user');
 			$this->user->insert($data);
-				
-			redirect("/user/login");	
-
+			
+			
+		redirect("http://localhost:8080/appCorreo/user/envio/?code=$randcode&mail=$email");
+		
 	}
 
 	public function autenticar(){
@@ -55,11 +57,16 @@ class User extends CI_Controller {
 		$user = $data['user'];
 		
 		
-		
+	
 		if (!empty($user)){
-			$data['title'] = "Pagina Principal";
-         	$this->load->view('salidav',$data);
-
+			if ($user->estado == 1) {
+				$data['title'] = "Pagina Principal";
+				$this->load->view('Pantillas/Header', $data);
+         		$this->load->view('salidav');
+         		$this->load->view('Pantillas/Footer');
+         	}else{
+         		echo "Usuario no verificado";
+         	}
 		}else{
 
 		 redirect("/user/login");
@@ -67,11 +74,10 @@ class User extends CI_Controller {
 		}
 		
 		
-	}
+		}
 	public function verificarUser(){
 		$code = $_REQUEST['code'];
-		echo $code;
-		die();
+		
 		$this->load->model('model_user','user');
 		$this->user->veriUser($code);
 		redirect("/user/login");
@@ -92,17 +98,20 @@ class User extends CI_Controller {
 		$mail->Password = "dorff147/"; 
 		$mail->Port = 465; 
 
-
-		$mail->From = "santiesmar@gmail.com"; 
+		//$email = $this->input->post('ncorreo');
+		$email = $_REQUEST['email'];
+		
+		$mail->From = $email; 
 		$mail->FromName = "Nombre";
 		$mail->Subject = "Notificacion";
 		$mail->AltBody = "Este es un mensaje";  
 		
-		$code =1652;
+		$code = $_REQUEST['code'];
+
 		$mail->MsgHTML("<p>Dale click para verificar tu cuenta</p><a href='http://localhost:8080/appCorreo/user/verificarUser/?code=$code'>Verificar codigo</a>"); 
 		
-		$mail->AddAddress("santiesmar@gmail.com"); $mail->IsHTML(true); 
-		
+		$mail->AddAddress("santiesmar@gmail.com"); 
+		$mail->IsHTML(true); 
 		
 		
 		$exito = $mail->Send(); // Envía el correo.
@@ -114,7 +123,7 @@ class User extends CI_Controller {
 		}else{
 			echo "Hubo un inconveniente. Contacta a un administrador";
 		}
-
+		redirect("http://localhost:8080/appCorreo/user/login");	
 	}
 
 	

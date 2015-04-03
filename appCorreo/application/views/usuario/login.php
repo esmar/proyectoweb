@@ -1,4 +1,5 @@
-<p><h1><center>Login</center></h1></p>
+<div class="page-header"><center><h1>WebUMail</center></h1></div>
+
 
 <div class="container">
 <form class="form-horizontal" method="POST" action="<?php echo base_url();?>user/autenticar">
