@@ -36,7 +36,7 @@ class User extends CI_Controller {
 				'password' =>  $encrip,
 				'estado' => 0 , 
 				'code' => $randcode,
-				'email' => $emial,
+				'email' => $email,
 				);
    		
 			$this->load->model('model_user','user');
@@ -99,8 +99,9 @@ class User extends CI_Controller {
 		$mail->Port = 465; 
 
 		//$email = $this->input->post('ncorreo');
-		$email = $_REQUEST['email'];
+		$email = $_REQUEST['mail'];
 		
+
 		$mail->From = $email; 
 		$mail->FromName = "Nombre";
 		$mail->Subject = "Notificacion";
@@ -110,7 +111,7 @@ class User extends CI_Controller {
 
 		$mail->MsgHTML("<p>Dale click para verificar tu cuenta</p><a href='http://localhost:8080/appCorreo/user/verificarUser/?code=$code'>Verificar codigo</a>"); 
 		
-		$mail->AddAddress("santiesmar@gmail.com"); 
+		$mail->AddAddress($email); 
 		$mail->IsHTML(true); 
 		
 		
