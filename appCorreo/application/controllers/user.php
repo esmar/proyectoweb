@@ -62,7 +62,7 @@ class User extends CI_Controller {
 			if ($user->estado == 1) {
 				$data['title'] = "Pagina Principal";
 				$this->load->view('Pantillas/Header', $data);
-         		$this->load->view('salidav');
+         		$this->load->view('vcorreos');
          		$this->load->view('Pantillas/Footer');
          	}else{
          		echo "Usuario no verificado";
