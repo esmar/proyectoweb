@@ -42,8 +42,8 @@ class User extends CI_Controller {
 			$this->load->model('model_user','user');
 			$this->user->insert($data);
 			
-			
-		redirect("http://localhost:8080/appCorreo/user/envio/?code=$randcode&mail=$email");
+		
+		redirect("http://localhost:8080/appCorreo/user/envioCorreo/?code=$randcode&mail=$email");
 		
 	}
 
@@ -60,30 +60,53 @@ class User extends CI_Controller {
 	
 		if (!empty($user)){
 			if ($user->estado == 1) {
+				
+				$data['id']=$user->id;
 				$data['title'] = "Pagina Principal";
+				$this->load->model('model_correo','correo');
+				$pendiente = "Pendiente";
+				$id = $user->id;
+				$emails= $this->correo->getAllBySalida($id,$pendiente);
+				$data['emails'] = $emails;
+				$enviado ="Enviado";
+				$emailss = $this->correo->getAllByEnviado($id,$enviado);
+				$data['emailss'] = $emailss;
+				
+				
 				$this->load->view('Pantillas/Header', $data);
-         		$this->load->view('vcorreos');
+         		$this->load->view('vcorreos', $data);
          		$this->load->view('Pantillas/Footer');
+
+
+				
          	}else{
-         		echo "Usuario no verificado";
+         		$data['title'] ="Pagina Error";
+         		
+         		$data['mensaje'] = "Usuario  no verificado";
+         		$this->load->view('Pantillas/Header', $data); 
+         		$this->load->view('errorlogin',$data);
+         		$this->load->view('Pantillas/Footer');
          	}
 		}else{
-
-		 redirect("/user/login");
-         echo "Error contraseña";
+				$data['title'] ="Pagina Error";
+				$data['mensaje'] = "Usuario  contraseña incorrecta";
+				$this->load->view('Pantillas/Header', $data);
+         		$this->load->view('errorlogin',$data);
+         		$this->load->view('Pantillas/Footer');
+		 		
 		}
 		
 		
 		}
-	public function verificarUser(){
+	public function verificar(){
 		$code = $_REQUEST['code'];
 		
 		$this->load->model('model_user','user');
-		$this->user->veriUser($code);
+		$this->user->verificando($code);
 		redirect("/user/login");
 	}
 	
-	public function envio(){
+	public function envioCorreo(){
 
 		include("class.phpmailer.php");
 		include("class.smtp.php"); 
@@ -109,7 +132,7 @@ class User extends CI_Controller {
 		
 		$code = $_REQUEST['code'];
 
-		$mail->MsgHTML("<p>Dale click para verificar tu cuenta</p><a href='http://localhost:8080/appCorreo/user/verificarUser/?code=$code'>Verificar codigo</a>"); 
+		$mail->MsgHTML("<p>Dale click para verificar tu cuenta</p><a href='http://localhost:8080/appCorreo/user/verificar/?code=$code'>Verificar codigo</a>"); 
 		
 		$mail->AddAddress($email); 
 		$mail->IsHTML(true); 
@@ -124,9 +147,9 @@ class User extends CI_Controller {
 		}else{
 			echo "Hubo un inconveniente. Contacta a un administrador";
 		}
-		redirect("http://localhost:8080/appCorreo/user/login");	
+		redirect("http://localhost:8080/appCorreo/user/vcorreos");	
 	}
-
+	
 	
 }
 

@@ -22,14 +22,14 @@
         	return $query->row();
 		}
 
-		public function veriUser($code){
+		public function verificando($code){
 			$consulta="UPDATE `users` SET `estado`=1 WHERE code='$code'";
         	$query = $this->db->query("$consulta");
         	return $query;
 
 		}
 
-		public function EstadoUser($ide){
+		public function estado($ide){
 			$consulta='SELECT estado FROM `users` WHERE id ='.$ide;
         	$query = $this->db->query("$consulta");
         	return $query->row();

@@ -12,7 +12,9 @@
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="salida">
       <br/>
-      <a href="http://localhost:8080/appCorreo/correo/index" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Nuevo</a>
+     
+      
+      <a href="http://localhost:8080/appCorreo/correo/nuevo/?id=<?php echo $id?>" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Nuevo</a>
        
       <br/>
       <div class="table-responsive">
@@ -26,19 +28,24 @@
             </tr>
         </thead>
         <tbody>
-          <tr>
-              <td>ID</td>
-              <td>Destinatario</td>
-              <td>Asunto</td>
-              <td>Mensaje</td>
+        
+          <?php foreach ($emails as $email) { ?>
+            
+            <tr>
+              <td><?php echo $email['id']; ?></td>
+              <td><?php echo $email['destinatario']; ?></td>
+              <td><?php echo $email['asunto']; ?></td>
+              <td><?php echo $email['mensaje']; ?></td>
               <td>
-                  <a href=""><span class="glyphicon glyphicon-edit" >Editar</a>
+                  <a href="http://localhost:8080/appCorreo/correo/editar/?cid=<?php echo $email['id']?>&id=<?php echo $id?>"><span class="glyphicon glyphicon-edit" >Editar</a>
               </td>
               <td>
-                  <a href=""><span class="glyphicon glyphicon-trash">Eliminar</a>
+                  <a href="http://localhost:8080/appCorreo/correo/eliminar/?cid=<?php echo $email['id']?>&id=<?php echo $id?>" onClick="return confirm('Desea eliminar el correo ?');"><span class="glyphicon glyphicon-trash">Eliminar</a>
               </td>
+              
             </tr>
-
+            <?php }?>
+         
         </tbody>
       </table>
       </div>
@@ -56,16 +63,21 @@
             </tr>
         </thead>
         <tbody>
-          <tr>
-              <td>ID</td>
-              <td>Destinatario</td>
-              <td>Asunto</td>
-              <td>Mensaje</td>
-             
+          
+         <?php foreach ($emailss as $emailv) { ?>
+            
+            <tr>
+              <td><?php echo $emailv['id']; ?></td>
+              <td><?php echo $emailv['destinatario']; ?></td>
+              <td><?php echo $emailv['asunto']; ?></td>
+              <td><?php echo $emailv['mensaje']; ?></td>
+              
               <td>
-                  <a href=""><span class="glyphicon glyphicon-trash">Eliminar</a>
+                  <a href="http://localhost:8080/appCorreo/correo/eliminar/?cid=<?php echo $email['id']?>&id=<?php echo $id?>" onClick="return confirm('Desea eliminar el correo ?');"><span class="glyphicon glyphicon-trash">Eliminar</a>
               </td>
+              
             </tr>
+            <?php }?>
 
         </tbody>
       </table>
