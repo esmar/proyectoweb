@@ -5,7 +5,7 @@
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#salida" aria-controls="salida" role="tab" data-toggle="tab">Salida</a></li>
     <li role="presentation"><a href="#enviados" aria-controls="enviados" role="tab" data-toggle="tab">Enviados</a></li>
-    
+    <li role="presentation"><a href="#salir" aria-controls="salir" role="tab" data-toggle="tab">Salir</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -73,18 +73,19 @@
               <td><?php echo $emailv['mensaje']; ?></td>
               
               <td>
-                  <a href="http://localhost:8080/appCorreo/correo/eliminar/?cid=<?php echo $email['id']?>&id=<?php echo $id?>" onClick="return confirm('Desea eliminar el correo ?');"><span class="glyphicon glyphicon-trash">Eliminar</a>
+                  <a href="http://localhost:8080/appCorreo/correo/eliminar/?cid=<?php echo $emailv['id']?>&id=<?php echo $id?>" onClick="return confirm('Desea eliminar el correo ?');"><span class="glyphicon glyphicon-trash">Eliminar</a>
               </td>
               
             </tr>
             <?php }?>
-
         </tbody>
       </table>
       </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="salir">
+        </br>
+        <center><a href="http://localhost:8080/appCorreo/user/login" class="btn btn-danger"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Nuevo</a>
+      </center>
+      </div>
 
     </div>
-      
-    </div>
-  </div>
-</div>
