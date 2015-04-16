@@ -19,7 +19,7 @@
 
 			$consulta='SELECT * FROM `users` WHERE id ='.$id;
         	$query = $this->db->query("$consulta");
-        	return $query->row();
+        	return $query->result_arrat();
 		}
 
 		public function verificando($code){
