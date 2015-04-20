@@ -27,12 +27,13 @@ class User extends CI_Controller {
 
 			$pas = $this->input->post('npassword'); 
 			$email = $this->input->post('ncorreo');
-			$name = $this->input->post('nusername');
+			
 			$encrip = md5($pas);
 			$randcode = rand(1000,9000);
    			$data  = array(
 
-				'name' => $this->input->post('nusername') , 
+   				'name' => $this->input->post('nname') , 
+				'user' => $this->input->post('nusername') , 
 				'password' =>  $encrip,
 				'estado' => 0 , 
 				'code' => $randcode,
@@ -40,20 +41,21 @@ class User extends CI_Controller {
 				);
    		
 			$this->load->model('model_user','user');
-			$this->user->insert($data);
+			$id = $this->user->insert($data);
 			
+		$urln = base_url()."user/envioCorreo/?code=$randcode&mail=$email&id=$id";
 		
-		redirect("http://localhost:8080/appCorreo/user/envioCorreo/?code=$randcode&mail=$email");
+		redirect($urln);
 		
 	}
 
 	public function autenticar(){
 
 		$this->load->model('model_user', 'user');
-		$nam =$this->input->post('nusername');
-    	$pas = $this->input->post('npassword'); 
-		$encrip = md5($pas);
-		$data['user'] = $this->user->getUser($nam,$encrip);
+		$user =$this->input->post('nusername');
+    	$pass = $this->input->post('npassword'); 
+		$encrip = md5($pass);
+		$data['user'] = $this->user->getUser($user,$encrip);
 		$user = $data['user'];
 		
 		
@@ -100,10 +102,11 @@ class User extends CI_Controller {
 		}
 	public function verificar(){
 		$code = $_REQUEST['code'];
-		
+		$id = $_REQUEST['id'];
 		$this->load->model('model_user','user');
-		$this->user->verificando($code);
-		redirect("/user/login");
+		$this->user->verificando($code,$id);
+		$urln = base_url()."user/login";
+		redirect($urln);
 	}
 	
 	public function envioCorreo(){
@@ -131,8 +134,10 @@ class User extends CI_Controller {
 		$mail->AltBody = "Este es un mensaje";  
 		
 		$code = $_REQUEST['code'];
-
-		$mail->MsgHTML("<p>Dale click para verificar tu cuenta</p><a href='http://localhost:8080/appCorreo/user/verificar/?code=$code'>Verificar codigo</a>"); 
+		$id = $_REQUEST['id'];
+		$link = base_url()."user/verificar/?code=$code&id=$id";
+		
+		$mail->MsgHTML("<p>Dale click para verificar tu cuenta</p><a href=$link>Verificar codigo</a>"); 
 		
 		$mail->AddAddress($email); 
 		$mail->IsHTML(true); 
@@ -142,12 +147,15 @@ class User extends CI_Controller {
 
 
 		if($exito){
-			echo "El correo fue enviado correctamente";
-			redirect("/user/login");
+			
+			$urln = base_url()."user/login";
+			
+			redirect($urln);
 		}else{
 			echo "Hubo un inconveniente. Contacta a un administrador";
 		}
-		redirect("http://localhost:8080/appCorreo/user/vcorreos");	
+		$urln = base_url()."user/vcorreos";
+		redirect($urln);	
 	}
 	
 	

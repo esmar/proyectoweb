@@ -4,11 +4,13 @@
 
 		public function insert($data){
 			$this->db->insert('users',$data);
+			$id=mysql_insert_id();
+			return $id;
 		}
 
-		public function getUser($nombre,$pass){
+		public function getUser($user,$pass){
 
-        $consulta="SELECT * FROM `users` WHERE name = '$nombre' and password = '$pass'";
+        $consulta="SELECT * FROM `users` WHERE user = '$user' and password = '$pass'";
         $query = $this->db->query("$consulta");
         return $query->row();
     
@@ -22,8 +24,8 @@
         	return $query->result_arrat();
 		}
 
-		public function verificando($code){
-			$consulta="UPDATE `users` SET `estado`=1 WHERE code='$code'";
+		public function verificando($code,$id){
+			$consulta="UPDATE `users` SET `estado`=1 WHERE id ='$id' and code='$code'";
         	$query = $this->db->query("$consulta");
         	return $query;
 

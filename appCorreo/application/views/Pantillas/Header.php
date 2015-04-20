@@ -17,12 +17,15 @@
 	function myFunction(cid, id) {
     if(confirm("Desea Eliminar el correo"))
 	{ 
-		window.location("http://localhost:8080/appCorreo/correo/eliminar/?cid="+ $cid +"&id="+ $id);
+		var link = base_url()+"correo/eliminar/?cid="+ $cid +"&id="+ $id;
+		document.writeln(link);
+		window.location(link);
 	}	
 	}
 </script>
 </head>
-<body>
+
+<body >
 
 
 

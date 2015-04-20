@@ -41,6 +41,13 @@
       <button type="submit" class="btn btn-success btn-lg btn-block" name="update" >Update</button>
     </div>
   </div>
+</br>
+  <div class="form-group">
+    <div class="col-sm-offset-4 col-xs-4" >
+      
+      <a class="btn btn-danger btn-lg btn-block" href="<?php echo base_url();?>correo/vista/?id=<?php echo $id?>">Cancelar</a>
+      </form>
+    </div>
  
 </form>
 </div>

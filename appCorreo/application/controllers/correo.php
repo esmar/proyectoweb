@@ -30,7 +30,8 @@ class Correo extends CI_Controller {
 			$this->load->model('model_correo','correo');
 			$this->correo->insert($data);
 			
-			redirect("http://localhost:8080/appCorreo/correo/vista/?id=$id");
+			$urln = base_url()."correo/vista/?id=$id";
+			redirect($urln);
 	}
 	public function editar(){
 
@@ -67,8 +68,8 @@ class Correo extends CI_Controller {
    		$this->load->model('model_correo','correo');
    		$this->correo->update($idc,$data);
    		$id = $_REQUEST['id'];
-
-   		redirect("http://localhost:8080/appCorreo/correo/vista/?id=$id");
+   		$urln = base_url()."correo/vista/?id=$id";
+   		redirect($urln);
 	}
 
 	public function eliminar(){
@@ -77,8 +78,8 @@ class Correo extends CI_Controller {
 		$this->load->model('model_correo','correo');
 		$this->correo->delete($cid);
 		$id= $_REQUEST['id'];
-		
-		redirect("http://localhost:8080/appCorreo/correo/vista/?id=$id");
+		$urln = base_url()."correo/vista/?id=$id";
+		redirect($urln);
 	}
 
 	public function vista(){
