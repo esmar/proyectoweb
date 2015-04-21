@@ -60,12 +60,13 @@ $password = '';
     				if ($idn == $idus) {
     				$name = $user->name;
     				$email = $user->email;
+
     			}
+
     		}
-    		
-    	
+
    
-	if (!empty($correos)) {
+	if (count($correos) > 0) {
 			$mail = new PHPMailer();
 
 //Luego tenemos que iniciar la validación por SMTP:
@@ -78,7 +79,7 @@ $password = '';
 			$mail->Port = 465; 
 			
     		
-		
+		     
 
 			$mail->From = $email; 
 			$mail->FromName = $name;
